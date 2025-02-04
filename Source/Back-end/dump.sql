@@ -186,7 +186,7 @@ CREATE TABLE `utente` (
 
 LOCK TABLES `utente` WRITE;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` VALUES ('Admin','nar@03.com',_binary '\0','Nardella','2003-05-17',_binary '\0','Dario','$2y$10$pkAe5ob9/thv9SfR6Yn5J.GX5LcsnOEc9ARXN2wx3tF8JxuB37D1i',NULL);
+INSERT INTO `utente` VALUES ('Admin','admin@gmail.com',_binary '\0','Nardella','2003-05-17',_binary '\0','Dario','$2y$10$pkAe5ob9/thv9SfR6Yn5J.GX5LcsnOEc9ARXN2wx3tF8JxuB37D1i',NULL);
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
