@@ -1,0 +1,32 @@
+<div class="contenitore-barra-orizzontale">
+  <div class="contenitore-titolo">
+    <div class="title nome-progetto">Manutenzione College</div>
+    <div class="user-menu">
+      <button class="user-btn" (click)="toggleDropdown()">
+        <div class="menu-icon" *ngIf="!menuOpen">
+          ☰
+        </div>
+        <div class="close-icon" *ngIf="menuOpen">
+          ✖
+        </div>
+        <div class="user-circle">P</div>
+      </button>
+
+      <div class="dropdown-menu" *ngIf="menuOpen">
+        <a class="dropdown-item" (click)="navigate('profilo')">Profilo</a>
+        <a class="dropdown-item" (click)="navigate('logout')">Log Out</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="contenitore-elementi navigazione-colore">
+    <div class="elementi-principali">
+      <ng-container *ngFor="let element of menuRoutes">
+        <div class="element" [ngClass]="[pathSelezionato==element.path?'bordo-sotto': '']" (click)="navigate(element.path)">
+          {{ element.label }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

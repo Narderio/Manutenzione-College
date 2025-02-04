@@ -1,0 +1,34 @@
+<div class="table-container">
+  <table mat-table [dataSource]="bagni" class="mat-elevation-z8">
+
+
+    <!-- Nucleo Column -->
+    <ng-container matColumnDef="nucleo">
+      <th mat-header-cell *matHeaderCellDef> Nucleo</th>
+      <td mat-cell *matCellDef="let element"> {{ element.nucleo }}</td>
+    </ng-container>
+
+    <!--    &lt;!&ndash; Actions Column &ndash;&gt;-->
+    <!--    <ng-container matColumnDef="actions">-->
+    <!--      <th mat-header-cell *matHeaderCellDef style="width: 10%"></th>-->
+    <!--      <td mat-cell *matCellDef="let element">-->
+    <!--        <button mat-button [matMenuTriggerFor]="menu">-->
+    <!--          <mat-icon>more_vert</mat-icon>-->
+    <!--        </button>-->
+    <!--        <mat-menu #menu="matMenu">-->
+    <!--          <button mat-menu-item (click)="eliminaBagno(element)">-->
+    <!--            <mat-icon>delete</mat-icon>-->
+    <!--            <span>Elimina</span>-->
+    <!--          </button>-->
+    <!--        </mat-menu>-->
+    <!--      </td>-->
+    <!--    </ng-container>-->
+
+
+    <tr mat-header-row *matHeaderRowDef="colonneMostrate"></tr>
+    <tr mat-row *matRowDef="let row; columns: colonneMostrate;"></tr>
+  </table>
+</div>
+<div class="add-container">
+  <button class="add-button" mat-raised-button (click)="aggiungiLuogo()">Aggiungi</button>
+</div>

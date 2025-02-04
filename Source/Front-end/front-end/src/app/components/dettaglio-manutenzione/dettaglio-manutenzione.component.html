@@ -1,0 +1,30 @@
+<div class="container-page">
+  <div class="title">Manutenzione: {{ manutenzione.nome }}</div>
+  <div class="content-container">
+    <div class="informazioni">
+      <div><strong>Priorità:</strong> {{ manutenzione.priorita }}</div>
+      <div><strong>Descrizione:</strong> {{ manutenzione.descrizione }}</div>
+      <div><strong>Utente richiedente:</strong> {{ manutenzione.utenteRichiedente }}</div>
+      <div><strong>Luogo:</strong> {{ manutenzione.luogo }}</div>
+      <div><strong>Stato:</strong> {{ manutenzione.stato }}</div>
+      <div><strong>Manutentore:</strong> {{ manutenzione.manutentore }}</div>
+      <div><strong>Data Richiesta:</strong> {{ manutenzione.dataRichiesta }}</div>
+      <div><strong>Data Prevista:</strong> {{ manutenzione.dataPrevista? manutenzione.dataPrevista:"!!Ancora da definire!!" }}</div>
+      <div><strong>Data Riparazione:</strong> {{ manutenzione.dataRiparazione? manutenzione.dataRiparazione:"!!Ancora da definire!!" }}</div>
+      <div><strong>Immagine:</strong> <img
+        *ngIf="manutenzione.immagine; else immagineNonPresente"
+        (click)="openImageDialog(manutenzione.immagine)"
+        [src]="manutenzione.immagine"
+        alt="Immagine manutenzione"
+        style="max-width: 200px; max-height: 200px; cursor: pointer"
+      />
+        <ng-template #immagineNonPresente>
+          !!Immagine non presente!!
+        </ng-template>
+      </div>
+    </div>
+    <div class="contenitore-bottone">
+    <button mat-raised-button (click)="tornaIndietro()">Indietro</button>
+    </div>
+  </div>
+</div>

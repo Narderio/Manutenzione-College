@@ -1,0 +1,123 @@
+.contenitore-barra-orizzontale {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contenitore-titolo {
+  width: 100%;
+  background-color: var(--mainColor);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 60px;
+  padding: 10px 60px;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+}
+
+.contenitore-elementi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 100vw;
+  background-color: var(--mainBackgroundColor);
+  box-sizing: border-box;
+}
+
+.elementi-principali {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  max-width: 900px;
+  height: 100%;
+}
+
+.element {
+  width: 180px;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-menu {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.user-btn {
+  background-color: #045070;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 30px;
+  transition: background 0.3s ease-in-out;
+  width: 100px;
+  height: 40px;
+  justify-content: center;
+}
+
+.close-icon, .menu-icon {
+  color: white;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+}
+
+.user-circle {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: #045070; /* Stesso colore del pulsante */
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-item {
+  padding: 10px;
+  text-align: left;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.bordo-sotto {
+  border-bottom: 2px solid white;
+}
+

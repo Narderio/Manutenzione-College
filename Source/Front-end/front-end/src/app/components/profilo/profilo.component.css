@@ -1,0 +1,28 @@
+.container-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.content-container{
+  width: 450px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 25px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button{
+  width: 100%;
+  display: flex;
+  margin: 24px 0 0 0;
+  justify-content: center;
+}
+
+.information, .dynamic-form{
+  width: 600px;
+  margin: 0 auto;
+}

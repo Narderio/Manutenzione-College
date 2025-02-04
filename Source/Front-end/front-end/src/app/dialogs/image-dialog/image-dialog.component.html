@@ -1,0 +1,15 @@
+<div class="dialog-container">
+  <div class="header">
+    <div class="dialog-title" mat-dialog-title>Immagine
+    </div>
+    <button class="close" (click)="close(false)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <img
+      [src]="data.immagine"
+      alt="Immagine ricevuta"
+    />
+  </div>
+</div>

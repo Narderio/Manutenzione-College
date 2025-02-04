@@ -1,0 +1,55 @@
+<div class="table-container">
+  <table mat-table [dataSource]="supervisori" class="mat-elevation-z8">
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%">Email</th>
+      <td mat-cell *matCellDef="let element"> {{ element.email }}</td>
+    </ng-container>
+
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef style="width: 12%">Nome</th>
+      <td mat-cell *matCellDef="let element"> {{ element.nome }}</td>
+    </ng-container>
+
+    <!-- Cognome Column -->
+    <ng-container matColumnDef="cognome">
+      <th mat-header-cell *matHeaderCellDef style="width: 13%">Cognome</th>
+      <td mat-cell *matCellDef="let element"> {{ element.cognome }}</td>
+    </ng-container>
+
+    <!-- Data di Nascita Column -->
+    <ng-container matColumnDef="dataDiNascita">
+      <th mat-header-cell *matHeaderCellDef style="width: 20%">Data di nascita</th>
+      <td mat-cell *matCellDef="let element"> {{ element.dataDiNascita }}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef style="width: 10%"></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="aggiornaRuolo(element)">
+            <mat-icon>edit</mat-icon>
+            <span>Aggiorna Ruolo</span>
+          </button>
+          <button mat-menu-item (click)="eliminaUtente(element)">
+            <mat-icon>delete</mat-icon>
+            <span>Elimina</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="colonneMostrate"></tr>
+    <tr mat-row *matRowDef="let row; columns: colonneMostrate;"></tr>
+  </table>
+</div>
+<div class="add-container">
+  <button class="add-button" mat-raised-button (click)="aggiungiUtente()">Aggiungi</button>
+</div>

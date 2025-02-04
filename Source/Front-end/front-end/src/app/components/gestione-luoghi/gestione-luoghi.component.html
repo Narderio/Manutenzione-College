@@ -1,0 +1,18 @@
+<div class="container-page">
+  <div class="title">Gestione Luoghi</div>
+  <mat-tab-group>
+    <mat-tab label="Stanze">
+      <app-tabella-stanze [stanze]="stanze" (aggiungiEmitter)="aggiungiLuogo($event)"
+                          (eliminaEmitter)="eliminaLuogo($event)"
+                          (modificaEmitter)="modificaStanza($event)"></app-tabella-stanze>
+    </mat-tab>
+    <mat-tab label="Bagni">
+      <app-tabella-bagni [bagni]="bagni" (aggiungiEmitter)="aggiungiLuogo($event)"
+                         (eliminaEmitter)="eliminaLuogo($event)"></app-tabella-bagni>
+    </mat-tab>
+    <mat-tab label="Luoghi Comuni">
+      <app-tabella-luoghi-comuni [luoghiComuni]="luoghiComuni" (aggiungiEmitter)="aggiungiLuogo($event)"
+                                 (eliminaEmitter)="eliminaLuogo($event)"></app-tabella-luoghi-comuni>
+    </mat-tab>
+  </mat-tab-group>
+</div>

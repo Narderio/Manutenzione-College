@@ -1,0 +1,17 @@
+<div class="dialog-container">
+  <div class="header">
+    <div class="dialog-title" mat-dialog-title>{{ data.title }}
+    </div>
+      <button class="close" (click)="close(false)">
+        <mat-icon>close</mat-icon>
+      </button>
+  </div>
+  <div mat-dialog-content>
+    {{ data.message }}
+  </div>
+  <div class="actions">
+    <button mat-raised-button class="back" (click)="close(false)">Indietro</button>
+    <button mat-raised-button class="send" (click)="close(true)"> {{ data.sendButton }}
+    </button>
+  </div>
+</div>

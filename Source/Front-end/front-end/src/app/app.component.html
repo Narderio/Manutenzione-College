@@ -1,0 +1,39 @@
+<div class="second-horizontal-container">
+  <div *ngIf="!isAuthenticated()" class="login-container">
+    <div class="title">Manutenzione College</div>
+    <div class="contenitore-immagine-form">
+      <img style="max-width: 200px; max-height: 200px" src="assets/logo.png"
+                alt="Immagine che indica l'inserimento di immagini">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="invioLogin()">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email"/>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          Email obbligatoria
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Inserisci un'email valida
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password"/>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password obbligatoria
+        </mat-error>
+      </mat-form-field>
+      <div class="link-finto" (click)="apriDimenticaPassword()">Ho dimenticato la password</div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        Accedi
+      </button>
+    </form>
+    </div>
+  </div>
+
+  <div *ngIf="isAuthenticated()" class="second-horizontal-container">
+    <app-navigazione class="left-toolbar" (pathEmitter)="changePage($event)"></app-navigazione>
+    <div class="router-outlet-container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

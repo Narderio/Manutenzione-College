@@ -1,0 +1,3 @@
+export enum TipoMessaggio {
+  INVIO = "INVIO", MODIFICA = "MODIFICA", ELIMINAZIONE = "ELIMINAZIONE"
+}

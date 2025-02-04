@@ -1,0 +1,37 @@
+<div class="dialog-container">
+  <div class="header">
+    <div mat-dialog-title>{{ data.title }}
+    </div>
+    <button class="close" (click)="close(false)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form [formGroup]="form" class="dynamic-form">
+      <div *ngFor="let input of data.form">
+        <mat-form-field *ngIf="input.type !== 'Checkbox'" appearance="fill">
+          <mat-label>{{ input.label }}</mat-label>
+          <input *ngIf="input.type === 'Text'" matInput [formControlName]="input.header"/>
+          <input *ngIf="input.type === 'Number'" matInput [formControlName]="input.header" min="{{input.min}}" max="{{input.max}}" type="number"/>
+          <input *ngIf="input.type === 'Date'" matInput [formControlName]="input.header" type="date"/>
+          <input *ngIf="input.type === 'Password'" matInput [formControlName]="input.header" type="password"/>
+          <mat-select *ngIf="input.type === 'Select'" [formControlName]="input.header">
+            <mat-option *ngFor="let option of input.selectOptions" [value]="option">{{ option }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get(input.header)?.invalid && form.get(input.header)?.touched">Questo campo è
+            errato
+          </mat-error>
+        </mat-form-field>
+        <mat-checkbox *ngIf="input.type === 'Checkbox'" [formControlName]="input.header">{{ input.label }}
+        </mat-checkbox>
+      </div>
+    </form>
+
+  </div>
+  <div class="actions">
+    <button class="back" mat-raised-button (click)="close(false)">Indietro</button>
+    <button class="send" mat-raised-button (click)="close(true)">
+      {{ data.sendButton }}
+    </button>
+  </div>
+</div>

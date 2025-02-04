@@ -1,0 +1,67 @@
+<div class="table-container">
+  <table mat-table [dataSource]="stanze" class="mat-elevation-z8">
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%"> Nome</th>
+      <td mat-cell *matCellDef="let element"> {{ element.nome }}</td>
+    </ng-container>
+
+    <!-- Nucleo Column -->
+    <ng-container matColumnDef="nucleo">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%"> Nucleo</th>
+      <td mat-cell *matCellDef="let element"> {{ element.nucleo }}</td>
+    </ng-container>
+
+    <!-- Piano Column -->
+    <ng-container matColumnDef="piano">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%"> Piano</th>
+      <td mat-cell *matCellDef="let element"> {{ element.piano }}</td>
+    </ng-container>
+
+    <!-- Capienza Column -->
+    <ng-container matColumnDef="capienza">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%">Capienza</th>
+      <td mat-cell *matCellDef="let element"> {{ element.capienza }}</td>
+    </ng-container>
+
+    <!-- Residenti Column -->
+    <ng-container matColumnDef="residenti">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%">Residenti</th>
+      <td mat-cell *matCellDef="let element"> {{ element.residenti }}</td>
+    </ng-container>
+
+
+    <!-- Tipo Column -->
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef style="width: 30%"> Tipo</th>
+      <td mat-cell *matCellDef="let element"> {{ element.tipo }}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef style="width: 10%"></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="modificaStanza(element)">
+            <mat-icon>edit</mat-icon>
+            <span>Modifica Capienza</span>
+          </button>
+          <button mat-menu-item (click)="eliminaStanza(element)">
+            <mat-icon>delete</mat-icon>
+            <span>Elimina</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="colonneMostrate"></tr>
+    <tr mat-row *matRowDef="let row; columns: colonneMostrate;"></tr>
+  </table>
+</div>
+<div class="add-container">
+  <button class="add-button" mat-raised-button (click)="aggiungiLuogo()">Aggiungi</button>
+</div>

@@ -1,0 +1,29 @@
+<div class="container-page">
+  <div class="title">Gestione Utenti</div>
+  <mat-tab-group>
+    <mat-tab label="Residenti">
+      <app-residenti [residenti]="residenti" (aggiungiEmitter)="aggiungiUtente($event)"
+                     (eliminaEmitter)="eliminaUtente($event)"
+                     (aggiornaRuoloEmitter)="aggiornaRuolo($event)"
+                     (aggiornaStanzaEmitter)="aggiornaStanzaResidente($event)"></app-residenti>
+    </mat-tab>
+    <mat-tab label="Manutentori">
+      <app-manutentori [manutentori]="manutentori" (aggiornaRuoloEmitter)="aggiornaRuolo($event)"
+                       (aggiungiEmitter)="aggiungiUtente($event)"
+                       (eliminaEmitter)="eliminaUtente($event)"></app-manutentori>
+    </mat-tab>
+
+    <mat-tab label="Supervisori">
+      <app-supervisori [supervisori]="supervisori" (aggiornaRuoloEmitter)="aggiornaRuolo($event)"
+                       (aggiungiEmitter)="aggiungiUtente($event)"
+                       (eliminaEmitter)="eliminaUtente($event)"></app-supervisori>
+    </mat-tab>
+
+    <mat-tab label="Admin">
+      <app-admin [admin]="admin" (aggiornaRuoloEmitter)="aggiornaRuolo($event)"
+                 (aggiungiEmitter)="aggiungiUtente($event)"
+                 (eliminaEmitter)="eliminaUtente($event)"></app-admin>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

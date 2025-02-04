@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="title">Segnala una Manutenzione</div>
+  <form class="form" #form [formGroup]="manutenzioneForm" (ngSubmit)="richiediManutenzione()">
+
+    <mat-form-field>
+      <mat-label>Nome Manutenzione:</mat-label>
+      <input matInput formControlName="nome" type="string"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descrizione:</mat-label>
+      <input matInput formControlName="descrizione" type="string"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Luogo:</mat-label>
+      <mat-select formControlName="idLuogo">
+        <mat-option *ngFor="let option of luoghi" [value]="option.id">{{ option.nome + " | " + option.tipo }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="contenitore-nome-immagine" *ngIf="nomeImmagine">{{ nomeImmagine }}
+      <div (click)="pulisciImmagine()">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+    <label for="fileInput" class="plus-button"><img class="picture-image" src="assets/picture.png"
+                                                    alt="Immagine che indica l'inserimento di immagini"></label>
+    <input
+      id="fileInput"
+      type="file"
+      accept="image/*"
+      style="display: none;"
+      (change)="convertImageToBase64($event)"
+    />
+
+    <button class="button" mat-button type="submit">Invia</button>
+  </form>
+</div>

@@ -1,0 +1,95 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    volumes:
+      - db_volume:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: manutenzione
+      MYSQL_PASSWORD: root
+
+    healthcheck:
+      test: [
+        "CMD", "sh", "-c",
+        "mysql -h localhost -u root --password=root -e 'SHOW TABLES FROM manutenzione;'"
+      ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  be:
+    container_name: manutenzione_be
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"  # Espone direttamente sull'host
+    restart: on-failure:5 
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    environment:
+      - spring.datasource.url=jdbc:mysql://db:3306/manutenzione
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.rabbitmq.host=rabbitmq
+      - server.port=5000
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    image: phpmyadmin
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 300M
+      MYSQL_ROOT_PASSWORD: root
+      PMA_ARBITRARY: 0
+    ports:
+      - "4000:80"  # Espone direttamente sull'host
+
+  fe:
+    container_name: fe
+    build:
+      context: ../Front-end/front-end
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4200:80"  # Espone direttamente sull'host
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # Management UI
+      - "61613:61613"   # STOMP
+      - "15674:15674"   # STOMP WebSocket
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      # RABBITMQ_MANAGEMENT: true
+    configs:
+      - source: plugins
+        target: /etc/rabbitmq/enabled_plugins
+    volumes:
+      - rabbit_volume:/var/lib/rabbitmq
+      - rabbit_data:/var/lib/rabbitmq/mnesia
+      - rabbit_logs:/var/log/rabbitmq
+
+volumes:
+  db_volume:
+  rabbit_volume:
+  rabbit_data:
+  rabbit_logs:
+
+configs:
+  plugins:
+    content: "[rabbitmq_management, rabbitmq_web_stomp]."

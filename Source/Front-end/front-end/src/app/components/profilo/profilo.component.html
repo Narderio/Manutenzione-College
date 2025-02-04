@@ -1,0 +1,19 @@
+<div class="container-page">
+  <div class="title">Ciao, {{ utente.nome }} {{ utente.cognome }}</div>
+  <div class="information content-container">
+      <div>Mail: {{ utente.email }}</div>
+      <div>Data di Nascita: {{ utente.dataDiNascita | date: 'dd/MM/yyyy' }}</div>
+      <div *ngIf="utente.ruolo == Ruolo.Residente">
+        Stanza: {{ stanza ? stanza.nome : '!!Senza stanza!!' }}
+      </div>
+      <div>Ruolo: {{ utente.ruolo }}</div>
+    <form [formGroup]="checkboxForm" class="dynamic-form">
+      <mat-checkbox formControlName="iscrizioneEmail">
+        <div *ngIf="utente.emailBloccate; else iscritto">disiscritto</div>
+        <ng-template #iscritto>iscritto</ng-template>
+        alla mail
+      </mat-checkbox>
+    </form>
+    <button mat-raised-button (click)="apriCambioPassword()">Cambio Password</button>
+  </div>
+</div>

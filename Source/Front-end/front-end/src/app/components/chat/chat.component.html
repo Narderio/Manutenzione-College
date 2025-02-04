@@ -1,0 +1,149 @@
+<div class="container-page">
+  <div class="chat-container">
+    <div class="header">
+      <form [formGroup]="utenteForm" class="utente-form">
+        <mat-select formControlName="utenti" id="utenteSelect">
+          <mat-option value="" disabled selected>Seleziona un utente</mat-option>
+          <mat-option *ngFor="let utente of utenti"
+                      [value]="utente.email">{{ utente.nome }} {{ utente.cognome }}
+            ({{ utente.ruolo }})
+          </mat-option>
+        </mat-select>
+      </form>
+    </div>
+
+    <div class="chat-box" *ngIf="destinatario" #chatContainer>
+      <div *ngIf="destinatario && chat.length == 0 " class="placeholder">
+        Chat vuota
+      </div>
+      <div *ngIf="chat && chat.length > 0">
+        <div
+          *ngFor="let messaggio of chat"
+          [class]="messaggio.mittente === utenteLoggato.email ? 'message sent' : 'message received'"
+        >
+          <div class="message-text">
+            <div [ngSwitch]="messaggio.tipoMessaggio">
+              <ng-template [ngSwitchCase]="TipoMessaggioInviato.IMMAGINE">
+                <img
+                  (click)="apriFinestraImmagine(messaggio.testo)"
+                  [src]="messaggio.testo"
+                  alt="Immagine ricevuta"
+                  class="image"
+                />
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="TipoMessaggioInviato.MANUTENZIONE">
+                <a [href]="'http://localhost:4200/dettaglio-manutenzione/'+messaggio.testo.split('@')[1]">Apri
+                  Manutenzione</a>
+              </ng-template>
+
+              <!-- ********* Se NON è un’immagine, mostro il testo ********* -->
+              <ng-template ngSwitchDefault>
+                <p>{{ messaggio.testo }}</p>
+              </ng-template>
+            </div>
+            <div class="testo-messaggio-riferimento" *ngIf="messaggiMap[messaggio.idRiferimentoMessaggio]">
+              <div [ngSwitch]="messaggiMap[messaggio.idRiferimentoMessaggio].tipoMessaggio">
+                <ng-template [ngSwitchCase]="TipoMessaggioInviato.IMMAGINE">
+                  <img
+                    (click)="apriFinestraImmagine(messaggiMap[messaggio.idRiferimentoMessaggio].testo)"
+                    [src]="messaggiMap[messaggio.idRiferimentoMessaggio].testo"
+                    alt="Immagine ricevuta"
+                  />
+                </ng-template>
+
+                <ng-template [ngSwitchCase]="TipoMessaggioInviato.MANUTENZIONE">
+                  <a
+                    [href]="messaggiMap[messaggio.idRiferimentoMessaggio].testo">Apri
+                    Manutenzione</a>
+                </ng-template>
+
+                <!-- ********* Se NON è un’immagine, mostro il testo ********* -->
+                <ng-template ngSwitchDefault>
+                  <p>{{ messaggiMap[messaggio.idRiferimentoMessaggio].testo }}</p>
+                </ng-template>
+              </div>
+              <div>{{ messaggiMap[messaggio.idRiferimentoMessaggio].nomeMittente }} {{ messaggiMap[messaggio.idRiferimentoMessaggio].cognomeMittente }}</div>
+              <div>{{ messaggiMap[messaggio.idRiferimentoMessaggio].data }}
+              </div>
+
+            </div>
+          </div>
+          <div class="message-options">
+            <button (click)="modificaMessaggio(messaggio)"
+                    [disabled]="messaggio.mittente !== utenteLoggato.email || messaggio.tipoMessaggio == TipoMessaggioInviato.IMMAGINE">
+              ✏️
+            </button>
+            <button (click)="eliminaMessaggio(messaggio)"
+                    [disabled]="messaggio.mittente !== utenteLoggato.email">🗑️
+            </button>
+            <button (click)="setMessaggioDaRispondere(messaggio)">🏷️
+            </button>
+            <div class="message-info">{{ messaggio.data }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-container" *ngIf="destinatario && destinatario !== utenteLoggato.email">
+      <div
+        *ngIf="messaggioRiferimento?.testo"
+        class="messaggio-riferimento">
+        <div [ngSwitch]="messaggioRiferimento.tipoMessaggio">
+          <ng-template [ngSwitchCase]="TipoMessaggioInviato.IMMAGINE">
+            <img
+              (click)="apriFinestraImmagine(messaggioRiferimento.testo)"
+              [src]="messaggioRiferimento.testo"
+              alt="Immagine ricevuta"
+            />
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="TipoMessaggioInviato.MANUTENZIONE">
+            <a [href]="messaggioRiferimento.testo">Apri Manutenzione</a>
+          </ng-template>
+
+          <!-- ********* Se NON è un’immagine, mostro il testo ********* -->
+          <ng-template ngSwitchDefault>
+            <p>{{ messaggioRiferimento.testo }}</p>
+          </ng-template>
+        </div>
+        <div class="data-bottone-messaggio-riferimento">{{ messaggioRiferimento.data }}</div>
+        <button class="data-bottone-messaggio-riferimento" (click)="setMessaggioDaRispondere()">❌</button>
+      </div>
+
+      <!-- Form per inviare il messaggio -->
+      <form class="form-input-container" [formGroup]="messaggioForm"
+            (ngSubmit)="inviaMessaggio(TipoMessaggioInviato.TESTO)">
+        <button type="button" mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="fileInputClick()">
+            <mat-icon>image</mat-icon>
+            <span>Carica Immagine</span>
+          </button>
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            style="display: none"
+            (change)="convertImageToBase64($event)"
+          />
+          <button mat-menu-item (click)="inviaManutenzione()">
+            <mat-icon>send</mat-icon>
+            <span>Invia Manutenzione</span>
+          </button>
+        </mat-menu>
+
+        <input
+          class="submit-input"
+          matInput
+          type="text"
+          formControlName="messaggio"
+          placeholder="Scrivi un messaggio..."
+          [disabled]="!destinatario"
+        />
+        <button class="submit-button" mat-button type="submit" [disabled]="messaggioForm.value?.messaggio == ''">Invia</button>
+      </form>
+    </div>
+  </div>
+</div>

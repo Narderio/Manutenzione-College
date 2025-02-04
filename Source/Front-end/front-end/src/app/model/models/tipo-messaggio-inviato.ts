@@ -1,0 +1,3 @@
+export enum TipoMessaggioInviato{
+  IMMAGINE= 'IMMAGINE', TESTO= 'TESTO', MANUTENZIONE= 'MANUTENZIONE'
+}
