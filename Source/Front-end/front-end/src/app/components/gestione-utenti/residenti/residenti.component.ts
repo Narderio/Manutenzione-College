@@ -67,7 +67,8 @@ export class ResidentiComponent {
       new FormDialogInput('Text', 'Nome', "nome", [Validators.required]),
       new FormDialogInput('Text', 'Cognome', "cognome", [Validators.required]),
       new FormDialogInput('Text', 'Email', "email", [Validators.required]),
-      new FormDialogInput('Date', 'Data di Nascita', "dataDiNascita", [Validators.required])]);
+      new FormDialogInput('Date', 'Data di Nascita', "dataDiNascita", [Validators.required]),
+    ])
 
     let dialogRef = this.dialog.open(FormDialogComponent, {
       height: '400px',

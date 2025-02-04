@@ -21,8 +21,8 @@
 
     <!-- Data di Nascita Column -->
     <ng-container matColumnDef="dataDiNascita">
-      <th mat-header-cell *matHeaderCellDef style="width: 20%">Data di nascita</th>
-      <td mat-cell *matCellDef="let element"> {{ element.dataDiNascita }}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 20%">aassssData di nascita</th>
+      <td mat-cell *matCellDef="let element"> {{ element.dataDiNascita | date:'dd/MM/yyyy'}}</td>
     </ng-container>
 
     <!-- Actions Column -->
